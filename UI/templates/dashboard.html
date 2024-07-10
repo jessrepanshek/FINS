@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINS Dashboard</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#dashboard" class="tab-selector" onclick="showTab('dashboard')">Dashboard</a></li>
+            <li><a href="#notification" class="tab-selector" onclick="showTab('notification')">Send Notification</a></li>
+            <!-- Removed templates tab since we won't be using it. -Jack, 10/18/2023 -->
+            <li><a href="#logs" class="tab-selector" onclick="showTab('logs')">Logs</a></li>
+            <li><a href="#settings" class="tab-selector" onclick="showTab('settings')">Settings</a></li>
+            <li><a href="#logout" class="tab-selector" onclick="showTab('logout')">Logout</a></li>
+        </ul>
+    </div>
+    <div class="content">
+
+        <div id="dashboard" class="tab-content">
+            <h1>Welcome to FINS.</h1>
+            <p id="current-time">Loading...</p>
+            <p>Last message sent 1901-09-28 10:00 AM</p>
+            <hr />
+
+            <!-- Section to test retrieving data from table -->
+            <h2>Users Table Data</h2>
+            <p>The following information has been received:</p>
+            <ul>
+                {% for user in user_data %}
+                <li>
+                    <strong>ID:</strong> {{ user[0] }}<br>
+                    <strong>Username:</strong> {{ user[1] }}<br>
+                    <strong>Email:</strong> {{ user[2] }}<br>
+                    <strong>First Name:</strong> {{ user[3] }}<br>
+                    <strong>Last Name:</strong> {{ user[4] }}<br>
+                    <strong>Password:</strong> {{ user[5] }}<br>
+                    <strong>Role:</strong> {{ user[6] }}<br>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div id="notification" class="tab-content">
+            <h2>Write Message</h2>
+            <p class="text-hint">Select a template OR begin writing a message...</p>
+            <form action="#" method="POST">
+                <label for="template-selector">Select Template:</label>
+                <br>
+                <select id="template-selector">
+                    <option value="Template 1">Template 1 - Welcome to the Program</option>
+                    <option value="Template 2">Template 2 - Thanksgiving Food Drive</option>
+                    <option value="Template 3">Template 3 - Christmas Food Drive</option>
+                    <option value="Template 4">Template 4 - Special Announcement</option>
+                    <option value="Template 5">Template 5 - Availability Update</option>
+                </select>
+                <br>
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+                <br>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" cols="50" required></textarea>
+                <br>
+                <label for="send-to">Send To:</label>
+                <select id="send-to">
+                    <option value="all">All</option>
+                    <option value="staff">Staff</option>
+                    <option value="subscribers">Subscribers</option>
+                </select>
+                <button id="save-button">Send Message</button>
+                <button id="cancel-button" class="secondary-button">Cancel</button>
+            </form>
+
+        </div>
+
+<!-- Removed templates tab since we won't be using it. -Jack, 10/18/2023 -->
+
+        <div id="logs" class="tab-content">
+            <h2>Message Logs</h2>
+            <!-- Add a date input field and a search button -->
+            <div class="search-bar">
+                <!-- Wrapped search bar inputs in a form. Jack, 10/18/2023 -->
+                <form id="date-search" action="/log_searchbar" method="GET">
+                    <label for="start-date-input">Start Date:</label>
+                    <input type="date" id="start-date-input" />
+
+                    <label for="end-date-input">End Date:</label>
+                    <input type="date" id="end-date-input" />
+
+                    <button id="search-button" type="submit">Search</button>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date/Time</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Sent By</th>
+                        <th>Sent To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023-09-28 10:00 AM</td>
+                        <td>Meeting Reminder</td>
+                        <td>Don't forget our meeting today at 2 PM.</td>
+                        <td>John Doe</td>
+                        <td>39 subscribers</td>
+                    </tr>
+                    <tr>
+                        <td>2023-09-27 2:30 PM</td>
+                        <td>Project Update</td>
+                        <td>The project is progressing as planned.</td>
+                        <td>Alice Johnson</td>
+                        <td>39 subscribers</td>
+                    </tr>
+                    <tr>
+                        <td>2023-09-26 9:15 AM</td>
+                        <td>Invitation</td>
+                        <td>You're invited to our company's annual party.</td>
+                        <td>Sarah Brown</td>
+                        <td>35 subscribers</td>
+                    </tr>
+                    <tr>
+                        <td>2023-09-25 3:45 PM</td>
+                        <td>Feedback Request</td>
+                        <td>Please share your feedback on our recent service.</td>
+                        <td>Mary Wilson</td>
+                        <td>31 subscribers</td>
+                    </tr>
+                    <tr>
+                        <td>2023-09-24 11:20 AM</td>
+                        <td>Thank You</td>
+                        <td>Thanks for your help with the project!</td>
+                        <td>Michael Taylor</td>
+                        <td>12 subscribers</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="settings" class="tab-content">
+            <h2>All Settings</h2>
+            <form class="settings-form" action="#" method="POST">
+                <fieldset>
+                    <legend>Notification Type:</legend>
+                    <label><input type="radio" name="notification-type" value="all"> All Notifications</label>
+                    <label><input type="radio" name="notification-type" value="emergency"> Emergency Notifications</label>
+                    <label><input type="radio" name="notification-type" value="none"> None</label>
+                </fieldset>
+                <button id="save-button">Save Settings</button>
+                <button id="cancel-button" class="secondary-button">Cancel</button>
+            </form>
+        </div>
+        <div id="logout" class="tab-content">
+            <h2>Logged out.</h2>
+        </div>
+    </div>
+
+    <!-- Run JS script to style dashboard and add interactive events -->
+    <script src="{{ url_for('static',filename='scripts/dashboard.js') }}"> </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+
+
+/** Dashboard styles **/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAF9F6;
+}
+.sidebar {
+    background-color: green;
+    color: white;
+    width: 15%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+}
+.sidebar li {
+    padding: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid white;
+    font-size: 1.5rem;
+}
+.sidebar li a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+.logout a {
+    color: white;
+}
+.content {
+    margin-left: 18%;
+    padding: 20px;
+}
+.tab-content {
+    width: 600px;
+    display: none;
+    background: white;
+    border-radius: 5px;
+    padding: 1% 3% 4%;
+    box-shadow: 2px 2px 7px grey;
+    overflow: scroll;
+}
+.active-tab {
+    display: block;
+}
+form {
+    width: 450px;
+}
+label {
+    width: 150px;
+}
+input, textarea {
+    width: 90%;
+    margin: 1%;
+}
+.settings-form input {
+    display: block;
+    width: unset;
+}
+button {
+    display: block;
+    font-size: 16px;
+    color: white;
+    background-color: green;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 2% auto;
+}
+.secondary-button {
+    color: green;
+    background-color: white;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+.search-bar {
+    width: 400px;
+    margin: auto;
+}
+#template-selector {
+    margin-bottom: 3%;
+}
+.text-hint {
+    font-style: italic;
+    font-weight: 200;
+    color: grey;
+}
